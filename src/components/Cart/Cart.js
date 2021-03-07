@@ -7,7 +7,8 @@ const Cart = (props) => {
     let total = 0;
     for(let i = 0; i<cart.length; i++){
         const product = cart[i];
-        total = total + product.price;
+        total = total + product.price * product.quantity;
+        
     }
     let shipping = 0;
     if(total>35){
@@ -32,6 +33,9 @@ const Cart = (props) => {
             <p><small>Shipping:{shipping}</small></p>
             <p><small>Tax:{formatNumber(tax)}</small></p>
             <p>Total:{formatNumber(total + shipping + tax)}</p>
+            {
+                props.children
+            }
         </div>
     );
 };
