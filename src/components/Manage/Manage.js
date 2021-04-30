@@ -2,7 +2,7 @@ import React from 'react';
 const Manage = () => {
     const handleAddProduct = () =>{
         const product={}
-         fetch('http://localhost:5000/addProducts',{
+         fetch('https://evening-forest-68265.herokuapp.com/addProducts',{
              method:'POST',
              headers:{
                 'Content-Type': 'application/json',

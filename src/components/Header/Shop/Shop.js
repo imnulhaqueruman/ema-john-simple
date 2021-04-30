@@ -9,12 +9,13 @@ const Shop = () => {
     //const first10 = fakeData.slice(0,15);
     const [products,setProducts] = useState([]);
     const[cart,setCart] = useState([]);
+    const [search,setSearch] = useState('');
     
     useEffect(() =>{
-        fetch('http://localhost:5000/products')
+        fetch('https://evening-forest-68265.herokuapp.com/products?search'+search)
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[products])
+    },[search])
 
 
 
@@ -22,7 +23,7 @@ const Shop = () => {
     useEffect(() =>{
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        fetch('http://localhost:5000/productByKeys',{
+        fetch('https://evening-forest-68265.herokuapp.com/productByKeys',{
              method:'POST',
              headers:{
                 'Content-Type': 'application/json',
@@ -55,10 +56,14 @@ const Shop = () => {
        
         addToDatabaseCart(product.key, count)
     }
+    const handleSearch = event =>{
+          setSearch(event.target.value);
+    }
 
     return (
         <div className="shop-container">
             <div className="product-container">
+                <input type="text" onChange={handleSearch} className="product-search"/>
                 {
                     products.map(pd => <Product
                         key={pd.key} 

@@ -7,6 +7,18 @@ export const firebaseFrameWork = () =>{
         firebase.initializeApp(firebaseConfig);
       }
 }
+
+
+const setUserToken = () =>{
+  firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+    sessionStorage.setItem('token', idToken)
+  }).catch(function(error) {
+    // Handle error
+  });
+}
+
+
+
 export const handleSignIn = () =>{
     const provider = new firebase.auth.GoogleAuthProvider();
     return firebase.auth().signInWithPopup(provider).
@@ -20,6 +32,7 @@ export const handleSignIn = () =>{
             email:email,
             success:true
       }
+       setUserToken();
       return (isSignedUser);
     
       //console.log(name,picture,email);
